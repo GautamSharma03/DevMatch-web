@@ -9,6 +9,7 @@ const Login = () => {
   const [emailId, setEmailId] = useState("modi@gmail.com");
   const [password, setPassword] = useState("Modi@2025");
   const [showPassword, setShowPassword] = useState(false);
+  const [error,setError] = useState("")
   const dispatch = useDispatch()
   const navigate = useNavigate()
   
@@ -25,8 +26,9 @@ const Login = () => {
         },{withCredentials : true})      ;
         dispatch(addUser(res.data));
       return navigate("/")
-    } catch (error) {
-      console.log(error);
+    } catch (err) { 
+     setError(err?.response?.data || "something went wrong")
+      
       
     }
   }
@@ -66,6 +68,7 @@ const Login = () => {
             )}
           </button>
         </div>
+        <p className="mt-2 text-red-400 textarea-md">{error}</p>
 
         <button className="btn btn-primary btn-md mt-6 w-full" onClick={handleLogin}>Login</button>
       </fieldset>
