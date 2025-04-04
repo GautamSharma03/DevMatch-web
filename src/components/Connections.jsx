@@ -22,16 +22,16 @@ const Connections = () => {
   }, []);
 
   if (!connections) return;
-  if (connections.length === 0) return <h1>NO connections found</h1>;
+  if (connections.length === 0) return <h1  className="flex justify-center my-10">NO connections found</h1>;
   return (
     <div className="  text-center my-10">
       <h1 className=" text-bold text-3xl">Connections</h1>
       {connections.map((connection) => {
-        const { firstName, lastName, age, gender, photoUrl, about } =
+        const {_id, firstName, lastName, age, gender, photoUrl, about } =
           connection;
 
         return (
-          <div className="flex m-4 p-4 rounded-lg bg-base-300 w-1/2 mx-auto">
+          <div key={_id}  className="flex m-4 p-4 rounded-lg bg-base-300 w-1/2 mx-auto">
             <div>
               <img
                 alt="photo"
