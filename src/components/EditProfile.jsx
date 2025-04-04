@@ -81,7 +81,7 @@ const EditProfile = ({ user }) => {
                     <input
                       type="text"
                       value={photoUrl}
-                      className="input input-bordered w-full max-w-xs"
+                      className="input input-bordered w-full max-w-xs mt-2"
                       onChange={(e) => setPhotoUrl(e.target.value)}
                     />
                   </label>
