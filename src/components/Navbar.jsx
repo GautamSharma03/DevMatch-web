@@ -19,50 +19,59 @@ const Navbar = () => {
   };
   return (
     <>
-      <div className="navbar bg-base-300 shadow-sm">
-        <div className="flex-1">
-          <Link to="/" className="btn btn-ghost text-2xl mx-2">
-            DevMatch
-          </Link>
-        </div>
-        <div className="flex gap-2">
-          {user && (
-            <div className="dropdown dropdown-end flex ">
-              <p className="mx-4 text-xl mt-1.5">Welcome {user.firstName}</p>
-              <div
-                tabIndex={0}
-                role="button"
-                className=" btn btn-ghost btn-circle avatar mx-5"
+  <div className="navbar bg-base-300 shadow-sm sticky top-0 z-10 px-4">
+    <div className="flex justify-between items-center w-full">
+      
+      {/* Logo */}
+      <Link to="/" className="btn btn-ghost text-xl sm:text-2xl">
+        DevMatch
+      </Link>
+
+      {/* User Dropdown */}
+      {user && (
+        <div className="dropdown dropdown-end">
+          <div
+            tabIndex={0}
+            role="button"
+            className="flex items-center btn btn-ghost"
+          >
+            {/* Show name on desktop, menu icon on mobile */}
+            <p className="hidden sm:block text-lg mr-2">Welcome, {user.firstName}</p>
+            <span className="sm:hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-6 h-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="2"
               >
-                <div className="w-10 rounded-full">
-                  <img alt="add url" src={user.photoUrl} />
-                </div>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+              </svg>
+            </span>
+            <div className="avatar ml-2">
+              <div className="w-10 rounded-full">
+                <img alt="Profile" src={user.photoUrl} />
               </div>
-              <ul
-                tabIndex={0}
-                className=" menu menu-md dropdown-content bg-base-200 rounded-box z-1 mt-14 w-52 p-2 shadow"
-              >
-                <li>
-                  <Link to="/profile" className="justify-between">
-                    Profile
-                    <span className="badge">New</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/connections">Connections</Link>
-                </li>
-                <li>
-                  <Link to="/requests">Requests</Link>
-                </li>
-                <li>
-                  <a onClick={handleLogout}>Logout</a>
-                </li>
-              </ul>
             </div>
-          )}
+          </div>
+
+          {/* Dropdown Menu */}
+          <ul
+            tabIndex={0}
+            className="menu menu-md dropdown-content bg-base-200 rounded-box z-10 mt-3 w-52 p-2 shadow"
+          >
+            <li><Link to="/profile">Profile</Link></li>
+            <li><Link to="/connections">Connections</Link></li>
+            <li><Link to="/requests">Requests</Link></li>
+            <li><a onClick={handleLogout}>Logout</a></li>
+          </ul>
         </div>
-      </div>
-    </>
+      )}
+    </div>
+  </div>
+</>
+
   );
 };
 

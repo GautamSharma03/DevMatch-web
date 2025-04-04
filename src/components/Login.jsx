@@ -2,41 +2,91 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [error,setError] = useState("")
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [isLoginForm, setIsLoginForm] = useState(true);
+  const [error, setError] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
   const handleLogin = async () => {
-   
     try {
-        const res = await axios.post(BASE_URL+"/login", {
+      const res = await axios.post(
+        BASE_URL + "/login",
+        {
           emailId,
-          password
-        },{withCredentials : true})      ;
-        dispatch(addUser(res.data));
-      return navigate("/")
-    } catch (err) { 
-     setError(err?.response?.data || "something went wrong")
+          password,
+        },
+        { withCredentials: true }
+      );
       
       
+      dispatch(addUser(res.data));
+      return navigate("/");
+    } catch (err) {
+      setError(err?.response?.data || "something went wrong");
     }
-  }
+  };
 
+  const handleSignUp = async () => {
+    try {
+      const res = await axios.post(
+        BASE_URL + "/signup",
+        {
+          firstName,
+          lastName,
+          emailId,
+          password,
+        },
+        { withCredentials: true }
+      );
+      dispatch(addUser(res.data.data))
+      return navigate("/profile");
+    } catch (error) {
+      setError(error?.response?.data || "something went wrong");
+    }
+  };
   return (
     <div className="flex justify-center mt-10">
       <fieldset className="fieldset w-xs bg-base-200 border border-base-300 p-4 rounded-box">
-        <legend className="fieldset-legend text-2xl">Login</legend>
+        <legend className="fieldset-legend text-2xl">
+          {isLoginForm ? "login" : "Signup"}
+        </legend>
+        {!isLoginForm && (
+          <>
+            <label className="fieldset-label text-xl mt-3 mb-2">
+              First Name
+            </label>
+            <input
+              type="text"
+              className="input"
+              placeholder="First Name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+            <label className="fieldset-label text-xl mt-3 mb-2">
+              Last Name
+            </label>
+            <input
+              type="text"
+              className="input"
+              placeholder="Last Name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </>
+        )}
 
         <label className="fieldset-label text-xl mt-3 mb-2">Email ID</label>
         <input
@@ -56,7 +106,7 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button 
+          <button
             type="button"
             className="absolute right-3 top-1/2 transform -translate-y-1/2"
             onClick={togglePasswordVisibility}
@@ -70,7 +120,18 @@ const Login = () => {
         </div>
         <p className="mt-2 text-red-400 textarea-md">{error}</p>
 
-        <button className="btn btn-primary btn-md mt-6 w-full" onClick={handleLogin}>Login</button>
+        <button
+          className="btn btn-primary btn-md mt-6 w-full"
+          onClick={isLoginForm ? handleLogin : handleSignUp}
+        >
+          {isLoginForm ? "Login" : "Sign Up"}
+        </button>
+        <p
+          onClick={() => setIsLoginForm((value) => !value)}
+          className=" m-auto mt-4  cursor-pointer"
+        >
+          {isLoginForm ? "New User ? Sign Up" : "Existing User ? Login"}
+        </p>
       </fieldset>
     </div>
   );

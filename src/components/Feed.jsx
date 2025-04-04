@@ -9,7 +9,7 @@ const Feed = () => {
   const dispatch = useDispatch();
 
   const getFeed = async () => {
-    if (feed) return;
+    if (feed?.length > 0) return;
     try {
       const res = await axios.get(BASE_URL + "/feed", {
         withCredentials: true,
@@ -22,12 +22,17 @@ const Feed = () => {
   };
 
   useEffect(() => {
-    if (!feed) getFeed();
-  }, [feed]);
+    getFeed();
+  }, []);
+if(!feed) return null
+if (feed.length === 0) {
+  return <h1 className="flex justify-center my-10 text-2xl">No new users found!</h1>; // CHANGED: Better UI alignment
+}
+ 
   return feed && (
     
     <div className=" flex justify-center my-20">
-      <UserCard user={feed[1]}/>
+      {feed.length > 0 && <UserCard user={feed[0]} />}
     </div>
     
   );
