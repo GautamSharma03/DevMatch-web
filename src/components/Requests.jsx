@@ -46,7 +46,6 @@ const Requests = () => {
         {requests.map((request) => {
           const { _id, firstName, lastName, age, gender, photoUrl, about } =
             request.fromUserId;
-
           return (
             <div
               key={_id}
