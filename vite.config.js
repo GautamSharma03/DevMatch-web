@@ -9,4 +9,5 @@ export default defineConfig({
     // ✅ Redirect all unknown routes to index.html (fixes 404 on refresh)
     historyApiFallback: true,
   },
+  base: "/"
 })
