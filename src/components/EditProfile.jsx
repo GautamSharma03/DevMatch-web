@@ -11,7 +11,7 @@ const EditProfile = ({ user }) => {
   const [photoUrl, setPhotoUrl] = useState(user.photoUrl);
   const [age, setAge] = useState(user.age || "");
   
-  const [gender, setGender] = useState(user.gender|| "");
+  const [gender, setGender] = useState(user.gender || "");
   const [about, setAbout] = useState(user.about || "");
   const [error, setError] = useState("");
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const EditProfile = ({ user }) => {
           firstName,
           lastName,
           photoUrl,
-          age,
+          age: String(age),
           gender,
           about,
         },
@@ -86,30 +86,34 @@ const EditProfile = ({ user }) => {
               />
             </label>
             <label className="form-control w-full my-2">
-              <div className="label mt-3 mb-2">
-                <span className="label-text">Age:</span>
-              </div>
-              <input
-                type="text"
-                value={age}
-                className="input input-bordered w-full"
-                onChange={(e) => setAge(e.target.value)}
-              />
-            </label>
-            <label className="form-control w-full my-2">
-              <div className="label mt-3 mb-2">
-                <span className="label-text">Gender:</span>
-              </div>
-              <select
-                className="select select-bordered w-full"
-                value={gender}
-                onChange={(e) => setGender(e.target.value)}
-              >
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select>
-            </label>
+                <div className="label mt-3 mb-2">
+                  <span className="label-text">Age:</span>
+                </div>
+                <input
+                  type="number"
+                  value={age}
+                  className="input input-bordered w-full"
+                  onChange={(e) => setAge(e.target.value)}
+                  min={1}
+                />
+              </label>
+
+              {/* ✅ Gender with default option */}
+              <label className="form-control w-full my-2">
+                <div className="label mt-3 mb-2">
+                  <span className="label-text">Gender:</span>
+                </div>
+                <select
+                  className="select select-bordered w-full"
+                  value={gender}
+                  onChange={(e) => setGender(e.target.value)}
+                >
+                  <option value="" disabled>Select Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </label>
             <label className="form-control w-full my-2">
               <div className="label mt-3 mb-2">
                 <span className="label-text">About:</span>
