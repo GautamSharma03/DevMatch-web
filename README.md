@@ -22,6 +22,7 @@ _A dynamic networking platform built for developers to connect, collaborate, and
 - 🔒 **Secure Authentication** – Login with encrypted credentials using JWT and bcrypt.
 - 🌍 **Customizable Profiles** – Showcase your skills, about, and intrests.
 - 📱 **Fully Responsive** – Designed for an optimized experience on both web and mobile.
+- 🚀 Deployed on EC2 with Nginx – Hosted on AWS EC2 for scalability and served efficiently using Nginx.
 
 ---
 
