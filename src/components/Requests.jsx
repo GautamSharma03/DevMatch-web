@@ -41,46 +41,60 @@ const Requests = () => {
   
   return (
     <>
-      <div className="  text-center my-10">
-        <h1 className=" text-bold text-3xl">Requests</h1>
-        {requests.map((request) => {
-          const { _id, firstName, lastName, age, gender, photoUrl, about } =
-            request.fromUserId;
-          return (
-            <div
-              key={_id}
-              className="flex justify-between items-center m-4 p-4 rounded-lg bg-base-300 w-2/3 h-1/6 mx-auto"
-            >
-              <div>
-                <img
-                  alt="photo"
-                  className="w-20 h-20 rounded-full object-cover"
-                  src={photoUrl}
-                />
-              </div>
-              <div className="text-left mx-7  w-1/2">
-                <h2 className="font-bold text-xl">
-                  {firstName + " " + lastName}
-                </h2>
-                {age && gender && <p>{age + ", " + gender}</p>}
-                <p>{about}</p>
-              </div>
-              <div className=" flex-1/4">
-                <button className="btn btn-active btn-primary mx-2" onClick={()=>reviewRequest("rejected", request._id )}>
-                  Reject
-                </button>
-                <button className="btn btn-active btn-accent mx-2" onClick={()=>reviewRequest("accepted", request._id )}>
-                  Accept
-                </button>
-              </div>
-              {/* <Link to={"/chat/" + _id}>
-              <button className="btn btn-primary">Chat</button>
-            </Link> */}
+    <div className="text-center my-10 px-4 pb-24"> {/* Added pb-24 for footer space */}
+      <h1 className="font-bold text-3xl sm:text-4xl mb-6">Requests</h1>
+  
+      {requests.map((request) => {
+        const { _id, firstName, lastName, age, gender, photoUrl, about } =
+          request.fromUserId;
+  
+        return (
+          <div
+            key={_id}
+            className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6 m-4 p-4 rounded-lg bg-base-300 w-full sm:w-4/5 lg:w-2/3 mx-auto shadow-md"
+          >
+            {/* Avatar */}
+            <div className="flex-shrink-0">
+              <img
+                alt="photo"
+                className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover"
+                src={photoUrl}
+              />
             </div>
-          );
-        })}
-      </div>
-    </>
+  
+            {/* User Info */}
+            <div className="text-center sm:text-left sm:mx-6 w-full sm:w-1/2">
+              <h2 className="font-bold text-xl sm:text-2xl">
+                {firstName + " " + lastName}
+              </h2>
+              {age && gender && (
+                <p className="text-base sm:text-lg">{age + ", " + gender}</p>
+              )}
+              <p className="text-sm sm:text-base mt-1">{about}</p>
+            </div>
+  
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-2 sm:mt-0">
+              <button
+                className="btn btn-active btn-primary"
+                onClick={() => reviewRequest("rejected", request._id)}
+              >
+                Reject
+              </button>
+              <button
+                className="btn btn-active btn-accent"
+                onClick={() => reviewRequest("accepted", request._id)}
+              >
+                Accept
+              </button>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </>
+  
+
   );
 };
 
