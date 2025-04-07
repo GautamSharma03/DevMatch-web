@@ -64,7 +64,6 @@ const Login = () => {
       {isLoginForm ? "Login" : "Sign Up"}
     </legend>
 
-    {/* Only show first/last name on signup */}
     {!isLoginForm && (
       <>
         <label className="block text-sm sm:text-base mt-3 mb-1">First Name</label>
@@ -118,6 +117,13 @@ const Login = () => {
       </button>
     </div>
 
+    {/* Password Hint (Only on Signup) */}
+    {!isLoginForm && (
+      <p className="text-xs sm:text-sm text-gray-400 mt-1">
+        Password must contain at least 8 characters, including one uppercase letter, one number, and one special character.
+      </p>
+    )}
+
     {error && (
       <p className="mt-2 text-xs sm:text-sm text-red-400">{error}</p>
     )}
@@ -137,6 +143,7 @@ const Login = () => {
     </p>
   </fieldset>
 </div>
+
 
   );
 };
