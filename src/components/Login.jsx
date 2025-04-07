@@ -58,82 +58,86 @@ const Login = () => {
     }
   };
   return (
-    <div className="flex justify-center mt-10">
-      <fieldset className="fieldset w-xs bg-base-200 border border-base-300 p-4 rounded-box">
-        <legend className="fieldset-legend text-2xl">
-          {isLoginForm ? "login" : "Signup"}
-        </legend>
-        {!isLoginForm && (
-          <>
-            <label className="fieldset-label text-xl mt-3 mb-2">
-              First Name
-            </label>
-            <input
-              type="text"
-              className="input"
-              placeholder="First Name"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-            <label className="fieldset-label text-xl mt-3 mb-2">
-              Last Name
-            </label>
-            <input
-              type="text"
-              className="input"
-              placeholder="Last Name"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
-          </>
-        )}
+    <div className="w-full flex justify-center mt-6 sm:mt-10 px-3">
+  <fieldset className="w-full max-w-md bg-base-200 border border-base-300 p-4 sm:p-6 rounded-box shadow-md">
+    <legend className="text-xl sm:text-2xl text-center font-semibold mb-4">
+      {isLoginForm ? "Login" : "Sign Up"}
+    </legend>
 
-        <label className="fieldset-label text-xl mt-3 mb-2">Email ID</label>
+    {/* Only show first/last name on signup */}
+    {!isLoginForm && (
+      <>
+        <label className="block text-sm sm:text-base mt-3 mb-1">First Name</label>
         <input
-          type="email"
-          className="input"
-          placeholder="Email"
-          value={emailId}
-          onChange={(e) => setEmailId(e.target.value)}
+          type="text"
+          className="input w-full"
+          placeholder="First Name"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
         />
 
-        <label className="fieldset-label text-xl mt-3 mb-2">Password</label>
-        <div className="relative">
-          <input
-            type={showPassword ? "text" : "password"}
-            className="input w-full"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button
-            type="button"
-            className="absolute right-3 top-1/2 transform -translate-y-1/2"
-            onClick={togglePasswordVisibility}
-          >
-            {showPassword ? (
-              <EyeOffIcon className="h-5 w-5 text-gray-500" />
-            ) : (
-              <EyeIcon className="h-5 w-5 text-gray-500" />
-            )}
-          </button>
-        </div>
-        <p className="mt-2 text-red-400 textarea-md">{error}</p>
+        <label className="block text-sm sm:text-base mt-3 mb-1">Last Name</label>
+        <input
+          type="text"
+          className="input w-full"
+          placeholder="Last Name"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+        />
+      </>
+    )}
 
-        <button
-          className="btn btn-primary btn-md mt-6 w-full"
-          onClick={isLoginForm ? handleLogin : handleSignUp}
-        >
-          {isLoginForm ? "Login" : "Sign Up"}
-        </button>
-        <p
-          onClick={() => setIsLoginForm((value) => !value)}
-          className=" m-auto mt-4  cursor-pointer"
-        >
-          {isLoginForm ? "New User ? Sign Up" : "Existing User ? Login"}
-        </p>
-      </fieldset>
+    <label className="block text-sm sm:text-base mt-3 mb-1">Email ID</label>
+    <input
+      type="email"
+      className="input w-full"
+      placeholder="Email"
+      value={emailId}
+      onChange={(e) => setEmailId(e.target.value)}
+    />
+
+    <label className="block text-sm sm:text-base mt-3 mb-1">Password</label>
+    <div className="relative">
+      <input
+        type={showPassword ? "text" : "password"}
+        className="input w-full pr-10"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <button
+        type="button"
+        className="absolute right-3 top-1/2 transform -translate-y-1/2"
+        onClick={togglePasswordVisibility}
+      >
+        {showPassword ? (
+          <EyeOffIcon className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500" />
+        ) : (
+          <EyeIcon className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500" />
+        )}
+      </button>
     </div>
+
+    {error && (
+      <p className="mt-2 text-xs sm:text-sm text-red-400">{error}</p>
+    )}
+
+    <button
+      className="btn btn-primary w-full btn-sm sm:btn-md mt-6"
+      onClick={isLoginForm ? handleLogin : handleSignUp}
+    >
+      {isLoginForm ? "Login" : "Sign Up"}
+    </button>
+
+    <p
+      onClick={() => setIsLoginForm((val) => !val)}
+      className="text-center mt-4 text-sm sm:text-base cursor-pointer text-blue-400 hover:underline"
+    >
+      {isLoginForm ? "New User? Sign Up" : "Existing User? Login"}
+    </p>
+  </fieldset>
+</div>
+
   );
 };
 
