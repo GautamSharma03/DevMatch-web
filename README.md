@@ -38,3 +38,14 @@ _A dynamic networking platform built for developers to connect, collaborate, and
 ##  📂Repositories
 - **Frontend Repository:** [Frontend GitHub Repo](https://github.com/GautamSharma03/DevMatch-web)
 - **Backend Repository:** [Backend GitHub Repo](https://github.com/GautamSharma03/DevMatch)
+
+---
+
+## ScreenShots
+![connections](https://github.com/user-attachments/assets/245ed970-8b00-414d-9956-98055f0763e8)
+![Chat](https://github.com/user-attachments/assets/f7c7b46b-1db5-469f-a614-408a0bb2659b)
+![signup](https://github.com/user-attachments/assets/a2342861-8980-47f3-98a5-a2ea1d2a5a62)
+![login](https://github.com/user-attachments/assets/fbf8e5f5-9c42-466c-87b6-bb5cd4a50bbe)
+![feed](https://github.com/user-attachments/assets/e903413c-758e-4868-9e3e-0555655e62eb)
+![edit profile](https://github.com/user-attachments/assets/2f9211a3-8928-4e82-a543-65bf261d526b)
+
