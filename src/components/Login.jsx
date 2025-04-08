@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
+import { motion } from "framer-motion";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("");
@@ -30,8 +31,7 @@ const Login = () => {
         },
         { withCredentials: true }
       );
-      
-      
+
       dispatch(addUser(res.data));
       return navigate("/");
     } catch (err) {
@@ -51,104 +51,119 @@ const Login = () => {
         },
         { withCredentials: true }
       );
-      dispatch(addUser(res.data.data))
+      dispatch(addUser(res.data.data));
       return navigate("/profile");
     } catch (error) {
       setError(error?.response?.data || "something went wrong");
     }
   };
+
   return (
-    <div className="w-full flex justify-center mt-6 sm:mt-10 px-3">
-  <fieldset className="w-full max-w-md bg-base-200 border border-base-300 p-4 sm:p-6 rounded-box shadow-md">
-    <legend className="text-xl sm:text-2xl text-center font-semibold mb-4">
-      {isLoginForm ? "Login" : "Sign Up"}
-    </legend>
-
-    {!isLoginForm && (
-      <>
-        <label className="block text-sm sm:text-base mt-3 mb-1">First Name</label>
-        <input
-          type="text"
-          className="input w-full"
-          placeholder="First Name"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-
-        <label className="block text-sm sm:text-base mt-3 mb-1">Last Name</label>
-        <input
-          type="text"
-          className="input w-full"
-          placeholder="Last Name"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
-      </>
-    )}
-
-    <label className="block text-sm sm:text-base mt-3 mb-1">Email ID</label>
-    <input
-      type="email"
-      className="input w-full"
-      placeholder="Email"
-      value={emailId}
-      onChange={(e) => setEmailId(e.target.value)}
-    />
-
-    <label className="block text-sm sm:text-base mt-3 mb-1">Password</label>
-    <div className="relative">
-      <input
-        type={showPassword ? "text" : "password"}
-        className="input w-full pr-10"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button
-        type="button"
-        className="absolute right-3 top-1/2 transform -translate-y-1/2"
-        onClick={togglePasswordVisibility}
+    <motion.div
+      className="w-full flex justify-center mt-6 sm:mt-10 px-3"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <motion.fieldset
+        className="w-full max-w-md bg-base-200 border border-base-300 p-4 sm:p-6 rounded-box shadow-md"
+        initial={{ scale: 0.95, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.7, delay: 0.2 }}
       >
-        {showPassword ? (
-          <EyeOffIcon className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500" />
-        ) : (
-          <EyeIcon className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500" />
+        <legend className="text-xl sm:text-2xl text-center font-semibold mb-4">
+          {isLoginForm ? "Login" : "Sign Up"}
+        </legend>
+
+        {!isLoginForm && (
+          <>
+            <label className="block text-sm sm:text-base mt-3 mb-1">
+              First Name
+            </label>
+            <input
+              type="text"
+              className="input w-full"
+              placeholder="First Name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+
+            <label className="block text-sm sm:text-base mt-3 mb-1">
+              Last Name
+            </label>
+            <input
+              type="text"
+              className="input w-full"
+              placeholder="Last Name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </>
         )}
-      </button>
-    </div>
 
-    {/* Password Hint (Only on Signup) */}
-    {!isLoginForm && (
-      <p className="text-xs sm:text-sm text-gray-400 mt-1">
-        Password must contain at least 8 characters, including one uppercase letter, one number, and one special character.
-      </p>
-    )}
+        <label className="block text-sm sm:text-base mt-3 mb-1">Email ID</label>
+        <input
+          type="email"
+          className="input w-full"
+          placeholder="Email"
+          value={emailId}
+          onChange={(e) => setEmailId(e.target.value)}
+        />
 
-    {error && (
-      <p className="mt-2 text-xs sm:text-sm text-red-400">{error}</p>
-    )}
+        <label className="block text-sm sm:text-base mt-3 mb-1">Password</label>
+        <div className="relative">
+          <input
+            type={showPassword ? "text" : "password"}
+            className="input w-full pr-10"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button
+            type="button"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2"
+            onClick={togglePasswordVisibility}
+          >
+            {showPassword ? (
+              <EyeOffIcon className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500" />
+            ) : (
+              <EyeIcon className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500" />
+            )}
+          </button>
+        </div>
 
-    <button
-      className="btn btn-primary w-full btn-sm sm:btn-md mt-6"
-      onClick={isLoginForm ? handleLogin : handleSignUp}
-    >
-      {isLoginForm ? "Login" : "Sign Up"}
-    </button>
+        {!isLoginForm && (
+          <p className="text-xs sm:text-sm text-gray-400 mt-1">
+            Password must contain at least 8 characters, including one uppercase
+            letter, one number, and one special character.
+          </p>
+        )}
 
-    <p
-      onClick={() => setIsLoginForm((val) => !val)}
-      className="text-center mt-4 text-sm sm:text-base cursor-pointer text-blue-400 hover:underline"
-    >
-      {isLoginForm ? "New User? Sign Up" : "Existing User? Login"}
-    </p>
-  </fieldset>
-</div>
+        {error && (
+          <p className="mt-2 text-xs sm:text-sm text-red-400">{error}</p>
+        )}
 
+        <motion.button
+          className="btn btn-primary w-full btn-sm sm:btn-md mt-6"
+          onClick={isLoginForm ? handleLogin : handleSignUp}
+          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.1 }}
+        >
+          {isLoginForm ? "Login" : "Sign Up"}
+        </motion.button>
 
+        <motion.p
+          onClick={() => setIsLoginForm((val) => !val)}
+          className="text-center mt-4 text-sm sm:text-base cursor-pointer text-blue-400 hover:underline"
+          whileHover={{ scale: 1.02 }}
+        >
+          {isLoginForm ? "New User? Sign Up" : "Existing User? Login"}
+        </motion.p>
+      </motion.fieldset>
+    </motion.div>
   );
 };
 
-// Simple eye icon components
 const EyeIcon = ({ className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
